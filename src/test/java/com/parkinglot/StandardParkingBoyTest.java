@@ -12,7 +12,7 @@ class StandardParkingBoyTest {
     void should_return_a_parking_ticket_when_standard_parking_boy_park_the_car_into_parking_lot_given_a_car() {
         //Given
         Car car = new Car();
-        StandardParkingBoy standardParkingBoy = new StandardParkingBoy();
+        StandardParkingBoy standardParkingBoy = new StandardParkingBoy(new ParkingLot());
 
         //When
         ParkingTicket parkingTicket = standardParkingBoy.parkCar(car);
@@ -26,7 +26,7 @@ class StandardParkingBoyTest {
     void should_return_fetched_car_when_standard_parking_boy_fetch_the_car_given_a_parking_ticket() {
         //Given
         Car car = new Car();
-        StandardParkingBoy standardParkingBoy = new StandardParkingBoy();
+        StandardParkingBoy standardParkingBoy = new StandardParkingBoy(new ParkingLot());
         ParkingTicket parkingTicket = standardParkingBoy.parkCar(car);
         
         //When
@@ -41,7 +41,7 @@ class StandardParkingBoyTest {
         //Given
         Car car1 = new Car();
         Car car2 = new Car();
-        StandardParkingBoy standardParkingBoy = new StandardParkingBoy();
+        StandardParkingBoy standardParkingBoy = new StandardParkingBoy(new ParkingLot());
         ParkingTicket parkingTicket1 = standardParkingBoy.parkCar(car1);
         ParkingTicket parkingTicket2 = standardParkingBoy.parkCar(car2);
 
@@ -58,7 +58,7 @@ class StandardParkingBoyTest {
     void should_not_return_a_car_when_standard_parking_boy_fetch_the_car_given_a_wrong_parking_ticket() {
         //Given
         Car car = new Car();
-        StandardParkingBoy standardParkingBoy = new StandardParkingBoy();
+        StandardParkingBoy standardParkingBoy = new StandardParkingBoy(new ParkingLot());
 
         ParkingTicket wrongParkingTicket = new ParkingTicket();
 
@@ -76,7 +76,7 @@ class StandardParkingBoyTest {
     void should_not_return_a_car_when_standard_parking_boy_fetch_a_car_given_the_ticket_have_been_used_already() {
         //Given
         Car car = new Car();
-        StandardParkingBoy standardParkingBoy = new StandardParkingBoy();
+        StandardParkingBoy standardParkingBoy = new StandardParkingBoy(new ParkingLot());
 
         ParkingTicket usedParkingTicket = standardParkingBoy.parkCar(car);
         standardParkingBoy.fetchCar(usedParkingTicket);
@@ -94,7 +94,7 @@ class StandardParkingBoyTest {
     void should_return_nothing_when_parking_given_parking_lot_with_full_capacity_10() {
         //Given
         Car car = new Car();
-        StandardParkingBoy standardParkingBoy = new StandardParkingBoy();
+        StandardParkingBoy standardParkingBoy = new StandardParkingBoy(new ParkingLot());
 
         IntStream.range(0, 10)
                 .forEach(value -> standardParkingBoy.parkCar(new Car()));
@@ -107,4 +107,6 @@ class StandardParkingBoyTest {
         //Then
         assertEquals("No Available Position.", parkingException.getMessage());
     }
+
+
 }
