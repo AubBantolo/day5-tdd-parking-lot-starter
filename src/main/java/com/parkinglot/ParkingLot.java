@@ -1,7 +1,10 @@
 package com.parkinglot;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ParkingLot {
     private Car car = new Car();
@@ -10,6 +13,10 @@ public class ParkingLot {
 
     public ParkingLot() {
         DEFAULT_CAPACITY = 10;
+    }
+
+    public List<Car> getParkedCars() {
+        return new ArrayList<>(parkingTicketCarMap.values());
     }
 
     public ParkingTicket park(Car car) {
