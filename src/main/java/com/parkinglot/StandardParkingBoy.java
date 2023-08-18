@@ -1,33 +1,35 @@
 package com.parkinglot;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class StandardParkingBoy {
 
     private Car car = new Car();
-    final int DEFAULT_CAPACITY;
-    private Map<ParkingTicket, Car> parkingTicketCarMap = new HashMap<>();
-    public StandardParkingBoy() {
-        DEFAULT_CAPACITY = 10;
+    private List<ParkingLot> parkingLots;
+
+    public StandardParkingBoy(ParkingLot... parkingLots) {
+        this.parkingLots = List.of(parkingLots);
+    }
+
+    public List<ParkingLot> getParkingLots() {
+        return parkingLots;
     }
 
     public ParkingTicket parkCar(Car car) {
-
-        if (parkingTicketCarMap.size() == DEFAULT_CAPACITY) {
-            throw new ParkingException();
-        }
-
-        ParkingTicket parkingTicket = new ParkingTicket();
-        parkingTicketCarMap.put(parkingTicket, car);
-        return parkingTicket;
+        return parkingLots.stream()
+                .filter(parkingLot -> parkingLot.hasAvailableSlots())
+                .findFirst()
+                .orElseThrow(() -> new ParkingException())
+                .park(car);
     }
 
 
     public Car fetchCar(ParkingTicket parkingTicket) {
-        if (parkingTicketCarMap.get(parkingTicket) == null) {
-            throw new UnrecognizedTicketException();
-        }
-        return parkingTicketCarMap.remove(parkingTicket);
+        return parkingLots.stream()
+                .map(parkingLot -> parkingLot.fetch(parkingTicket))
+                .findAny()
+                .orElseThrow(() -> new UnrecognizedTicketException());
     }
 }
