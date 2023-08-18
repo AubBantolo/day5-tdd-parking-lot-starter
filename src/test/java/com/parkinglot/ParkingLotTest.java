@@ -53,4 +53,24 @@ class ParkingLotTest {
         assertSame(car1, fetchedCar1);
         assertSame(car2, fetchedCar2);
     }
+
+    @Test
+    void should_return_nothing_when_fetch_given_parking_lot_and_wrong_ticket() {
+        //Given
+        ParkingLot parkingLot = new ParkingLot();
+        Car car = new Car();
+        parkingLot.park(car);
+
+        ParkingTicket wrongParkingTicket = new ParkingTicket();
+
+        //When
+        UnrecognizedTicketException unrecognizedTicketException = assertThrows(UnrecognizedTicketException.class, () -> {
+            parkingLot.fetch(wrongParkingTicket);
+        });
+
+        //Car fetchedCar = parkingLot.fetch(wrongParkingTicket);
+
+        //Then
+        assertEquals("Unrecognized parking ticket.", unrecognizedTicketException.getMessage());
+    }
 }
