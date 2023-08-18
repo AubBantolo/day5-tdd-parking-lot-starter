@@ -12,4 +12,12 @@ public class StandardParkingBoy {
         parkingTicketCarMap.put(parkingTicket, car);
         return parkingTicket;
     }
+
+
+    public Car fetchCar(ParkingTicket parkingTicket) {
+        if (parkingTicketCarMap.get(parkingTicket) == null) {
+            throw new UnrecognizedTicketException();
+        }
+        return parkingTicketCarMap.remove(parkingTicket);
+    }
 }
