@@ -32,5 +32,7 @@ public class ParkingLot {
         return parkingTicketCarMap.remove(parkingTicket);
     }
 
-
+    public boolean hasAvailableSlots() {
+        return parkingTicketCarMap.size() < DEFAULT_CAPACITY;
+    }
 }
