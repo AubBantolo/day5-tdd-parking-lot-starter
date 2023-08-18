@@ -20,6 +20,9 @@ public class ParkingLot {
     public Car fetch(ParkingTicket parkingTicket) {
         Car fetchedCar = parkingTicketCarMap.get(parkingTicket);
 
+        if(parkingTicketCarMap.get(parkingTicket) == null){
+            throw new UnrecognizedTicketException();
+        }
         return parkingTicketCarMap.remove(parkingTicket);
     }
 
