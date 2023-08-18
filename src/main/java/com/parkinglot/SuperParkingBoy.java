@@ -3,11 +3,10 @@ package com.parkinglot;
 import java.util.Comparator;
 import java.util.List;
 
-public class SmartParkingBoy {
-
+public class SuperParkingBoy {
     private Car car = new Car();
     private List<ParkingLot> parkingLots;
-    public SmartParkingBoy(ParkingLot... parkingLots) {
+    public SuperParkingBoy(ParkingLot... parkingLots) {
         this.parkingLots = List.of(parkingLots);
     }
     public List<ParkingLot> getParkingLots() {
@@ -16,7 +15,7 @@ public class SmartParkingBoy {
 
     public ParkingTicket parkCar(Car car) {
         return parkingLots.stream()
-                .max(Comparator.comparing(ParkingLot::getAvailableSlots))
+                .max(Comparator.comparing(ParkingLot::getLargestAvailablePositionRate))
                 .orElseThrow(() -> new ParkingException())
                 .park(car);
     }
@@ -28,4 +27,5 @@ public class SmartParkingBoy {
                 .findAny()
                 .orElseThrow(() -> new UnrecognizedTicketException());
     }
+
 }

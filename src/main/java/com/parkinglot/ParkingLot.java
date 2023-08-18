@@ -1,5 +1,6 @@
 package com.parkinglot;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,11 +17,6 @@ public class ParkingLot {
     public ParkingLot() {
         this.capacity = DEFAULT_CAPACITY;
     }
-
-    public int getCapacity() {
-        return capacity;
-    }
-
     public ParkingLot(int capacity) {
         this.capacity = capacity;
     }
@@ -31,10 +27,9 @@ public class ParkingLot {
 
     public ParkingTicket park(Car car) {
 
-        if (parkingTicketCarMap.size() == DEFAULT_CAPACITY) {
+        if (!hasAvailableSlots()) {
             throw new ParkingException();
         }
-
         ParkingTicket parkingTicket = new ParkingTicket();
         parkingTicketCarMap.put(parkingTicket, car);
         return parkingTicket;
@@ -51,5 +46,13 @@ public class ParkingLot {
 
     public boolean hasAvailableSlots() {
         return parkingTicketCarMap.size() < capacity;
+    }
+
+    public int getAvailableSlots() {
+        return capacity - parkingTicketCarMap.size();
+    }
+
+    public BigDecimal getLargestAvailablePositionRate() {
+        return BigDecimal.valueOf(getAvailableSlots()).divide(BigDecimal.valueOf(capacity));
     }
 }
