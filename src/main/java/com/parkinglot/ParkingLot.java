@@ -8,11 +8,21 @@ import java.util.stream.Collectors;
 
 public class ParkingLot {
     private Car car = new Car();
-    final int DEFAULT_CAPACITY;
+
+    private int capacity;
+    private static final int DEFAULT_CAPACITY = 10;
     private Map<ParkingTicket, Car> parkingTicketCarMap = new HashMap<>();
 
     public ParkingLot() {
-        DEFAULT_CAPACITY = 10;
+        this.capacity = DEFAULT_CAPACITY;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public ParkingLot(int capacity) {
+        this.capacity = capacity;
     }
 
     public List<Car> getParkedCars() {
@@ -40,6 +50,6 @@ public class ParkingLot {
     }
 
     public boolean hasAvailableSlots() {
-        return parkingTicketCarMap.size() < DEFAULT_CAPACITY;
+        return parkingTicketCarMap.size() < capacity;
     }
 }
