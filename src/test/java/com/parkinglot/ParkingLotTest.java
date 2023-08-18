@@ -97,6 +97,7 @@ class ParkingLotTest {
         //Given
         Car car = new Car();
         ParkingLot parkingLot = new ParkingLot();
+
         List<ParkingTicket> parkingTickets = IntStream.range(0, 10)
                 .mapToObj(numberOfParkingTickets -> parkingLot.park(car))
                 .collect(Collectors.toList());
