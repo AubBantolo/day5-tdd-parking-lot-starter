@@ -107,7 +107,7 @@ class SmartParkingBoyTest {
         assertEquals("No Available Position.", parkingException.getMessage());
     }
     @Test
-    void should_return_car_will_parked_to_the_second_parking_lot_when_park_given_smart_parking_boy_manage_2_parking_lots_with_available_position() {
+    void should_return_car_will_parked_to_the_second_parking_lot_when_park_given_smart_parking_boy_manage_2_parking_lots_with_more_position() {
         //Given
         Car car = new Car();
         ParkingLot parkingLot1 = new ParkingLot(10);
@@ -124,7 +124,7 @@ class SmartParkingBoyTest {
     }
 
     @Test
-    void should_return_car_will_parked_to_the_first_parking_lot_when_park_given_smart_parking_boy_manage_2_parking_lots_with_available_position() {
+    void should_return_car_will_parked_to_the_first_parking_lot_when_park_given_smart_parking_boy_manage_2_parking_lots_with_more_position() {
         //Given
         Car car = new Car();
         ParkingLot parkingLot1 = new ParkingLot(20);
@@ -138,5 +138,30 @@ class SmartParkingBoyTest {
         assertNotNull(parkingTicket);
         assertTrue(parkingLot1.getParkedCars().contains(car));
         assertFalse(parkingLot2.getParkedCars().contains(car));
+    }
+
+    @Test
+    void should_return_car_will_parked_to_the_second_parking_lot_when_park_given_smart_parking_boy_manage_2_parking_lots_with_more_position_with_parked_cars() {
+        //Given
+        Car car = new Car();
+        ParkingLot parkingLot1 = new ParkingLot(20);
+        setInitiallyParkedCars(parkingLot1, 15);
+
+        ParkingLot parkingLot2 = new ParkingLot(10);
+        setInitiallyParkedCars(parkingLot2, 4);
+        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLot1, parkingLot2);
+
+        //When
+        ParkingTicket parkingTicket = smartParkingBoy.parkCar(car);
+
+        //Then
+        assertNotNull(parkingTicket);
+        assertFalse(parkingLot1.getParkedCars().contains(car));
+        assertTrue(parkingLot2.getParkedCars().contains(car));
+    }
+
+    private void setInitiallyParkedCars(ParkingLot parkingLot, int numberOfCarsParked) {
+        IntStream.range(0, numberOfCarsParked)
+                .forEach(value -> parkingLot.park(new Car()));
     }
 }
