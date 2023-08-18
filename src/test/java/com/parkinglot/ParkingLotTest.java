@@ -105,9 +105,8 @@ class ParkingLotTest {
             parkingLot.park(car);
         });
 
-
         //Then
         assertEquals("No Available Position.", parkingException.getMessage());
-//        assertNull(noTicket);
+
     }
 }
