@@ -150,4 +150,25 @@ class StandardParkingBoyTest {
         assertTrue(parkingLot2.getParkedCars().contains(car));
     }
 
+    @Test
+    void should_return_right_car_when_fetch_car_twice_given_standard_parking_boy_manage_2_parking_lots_both_with_a_parked_car_2_parking_ticket() {
+        //Given
+        Car car1 = new Car();
+        Car car2 = new Car();
+        ParkingLot parkingLot1 = new ParkingLot();
+        ParkingLot parkingLot2 = new ParkingLot();
+
+        StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLot1, parkingLot2);
+
+        ParkingTicket parkingTicket1 = standardParkingBoy.parkCar(car1);
+        ParkingTicket parkingTicket2 = standardParkingBoy.parkCar(car2);
+
+        //When
+        Car fetchedCar1 = standardParkingBoy.fetchCar(parkingTicket1);
+        Car fetchedCar2 = standardParkingBoy.fetchCar(parkingTicket2);
+
+        //Then
+        assertSame(car1, fetchedCar1);
+        assertSame(car2, fetchedCar2);
+    }
 }
