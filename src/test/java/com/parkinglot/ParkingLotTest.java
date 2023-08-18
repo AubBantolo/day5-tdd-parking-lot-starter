@@ -2,11 +2,10 @@ package com.parkinglot;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 class ParkingLotTest {
     @Test
     void should_return_ticket_when_park_given_parking_lot_a_car() {
@@ -98,14 +97,17 @@ class ParkingLotTest {
         Car car = new Car();
         ParkingLot parkingLot = new ParkingLot();
 
-        List<ParkingTicket> parkingTickets = IntStream.range(0, 10)
-                .mapToObj(numberOfParkingTickets -> parkingLot.park(car))
-                .collect(Collectors.toList());
+        IntStream.range(0, 10)
+                .forEach(value -> parkingLot.park(new Car()));
 
         //When
-        ParkingTicket noTicket = parkingLot.park(car);
+        ParkingException parkingException = assertThrows(ParkingException.class, () -> {
+            parkingLot.park(car);
+        });
+
 
         //Then
-        assertNull(noTicket);
+        assertEquals("No Available Position.", parkingException.getMessage());
+//        assertNull(noTicket);
     }
 }
