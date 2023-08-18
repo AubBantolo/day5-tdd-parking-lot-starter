@@ -92,5 +92,19 @@ class ParkingLotTest {
         assertEquals("Unrecognized parking ticket.", unrecognizedTicketException.getMessage());
     }
 
-  
+    @Test
+    void should_return_nothing_when_parking_given_parking_lot_with_full_capacity_10() {
+        //Given
+        Car car = new Car();
+        ParkingLot parkingLot = new ParkingLot();
+        List<ParkingTicket> parkingTickets = IntStream.range(0, 10)
+                .mapToObj(numberOfParkingTickets -> parkingLot.park(car))
+                .collect(Collectors.toList());
+
+        //When
+        ParkingTicket noTicket = parkingLot.park(car);
+
+        //Then
+        assertNull(noTicket);
+    }
 }
