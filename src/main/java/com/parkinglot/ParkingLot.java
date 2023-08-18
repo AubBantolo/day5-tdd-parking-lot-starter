@@ -12,12 +12,12 @@ public class ParkingLot {
         DEFAULT_CAPACITY = 10;
     }
 
-
     public ParkingTicket park(Car car) {
 
         if (parkingTicketCarMap.size() == DEFAULT_CAPACITY) {
             throw new ParkingException();
         }
+
         ParkingTicket parkingTicket = new ParkingTicket();
         parkingTicketCarMap.put(parkingTicket, car);
         return parkingTicket;
