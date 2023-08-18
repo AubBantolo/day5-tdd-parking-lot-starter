@@ -126,6 +126,28 @@ class StandardParkingBoyTest {
         assertTrue(parkingLot1.getParkedCars().contains(car));
         assertFalse(parkingLot2.getParkedCars().contains(car));
     }
-    
+
+    @Test
+    void should_car_will_parked_to_the_second_parking_lot_when_park_given_standard_parking_boy_manage_2_parking_lots_1_is_full_2_available_position() {
+        //Given
+        Car car = new Car();
+        ParkingLot parkingLot1 = new ParkingLot();
+        ParkingLot parkingLot2 = new ParkingLot();
+        StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLot1, parkingLot2);
+
+        IntStream.range(0, 10).forEach(value -> {
+            standardParkingBoy.parkCar(new Car());
+        });
+
+        standardParkingBoy.parkCar(car);
+
+        //When
+        ParkingTicket parkingTicket = standardParkingBoy.parkCar(car);
+
+        //Then
+        assertNotNull(parkingTicket);
+        assertFalse(parkingLot1.getParkedCars().contains(car));
+        assertTrue(parkingLot2.getParkedCars().contains(car));
+    }
 
 }
