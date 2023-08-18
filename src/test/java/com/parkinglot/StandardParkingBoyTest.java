@@ -172,7 +172,7 @@ class StandardParkingBoyTest {
     }
 
     @Test
-    void should_return_nothing_when_fetch_car_given_standard_parking_boy_manage_2_parking_lots_both_with_and_unrecognized_parking_ticket() {
+    void should_return_nothing_when_fetch_car_given_standard_parking_boy_manage_2_parking_lots_both_with_an_unrecognized_parking_ticket() {
         //Given
         Car car = new Car();
         ParkingLot parkingLot1 = new ParkingLot();
@@ -180,7 +180,28 @@ class StandardParkingBoyTest {
 
         StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLot1, parkingLot2);
 
-        ParkingTicket usedParkingTicket = new ParkingTicket();
+        ParkingTicket unrecognizedParkingTicket = new ParkingTicket();
+
+        //When
+        UnrecognizedTicketException unrecognizedTicketException = assertThrows(UnrecognizedTicketException.class, () -> {
+            standardParkingBoy.fetchCar(unrecognizedParkingTicket);
+        });
+
+        //Then
+        assertEquals("Unrecognized parking ticket.", unrecognizedTicketException.getMessage());
+    }
+
+    @Test
+    void should_return_nothing_when_fetch_car_given_standard_parking_boy_manage_2_parking_lots_both_with_a_used_parking_ticket() {
+        //Given
+        Car car = new Car();
+        ParkingLot parkingLot1 = new ParkingLot();
+        ParkingLot parkingLot2 = new ParkingLot();
+
+        StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLot1, parkingLot2);
+
+        ParkingTicket usedParkingTicket = standardParkingBoy.parkCar(car);
+        standardParkingBoy.fetchCar(usedParkingTicket);
 
         //When
         UnrecognizedTicketException unrecognizedTicketException = assertThrows(UnrecognizedTicketException.class, () -> {
@@ -190,4 +211,6 @@ class StandardParkingBoyTest {
         //Then
         assertEquals("Unrecognized parking ticket.", unrecognizedTicketException.getMessage());
     }
+
+
 }
