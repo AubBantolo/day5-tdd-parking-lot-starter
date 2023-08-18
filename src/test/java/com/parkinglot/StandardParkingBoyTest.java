@@ -212,5 +212,25 @@ class StandardParkingBoyTest {
         assertEquals("Unrecognized parking ticket.", unrecognizedTicketException.getMessage());
     }
 
+    @Test
+    void should_return_nothing_when_fetch_car_given_standard_parking_boy_manage_2_parking_lots_both_with_any_position() {
+        //Given
+        Car car = new Car();
+        ParkingLot parkingLot1 = new ParkingLot();
+        ParkingLot parkingLot2 = new ParkingLot();
 
+        StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLot1, parkingLot2);
+
+        //When
+        IntStream.range(0, 20)
+                .forEach(value -> standardParkingBoy.parkCar(new Car()));
+
+        //When
+        ParkingException parkingException = assertThrows(ParkingException.class, () -> {
+            standardParkingBoy.parkCar(car);
+        });
+
+        //Then
+        assertEquals("No Available Position.", parkingException.getMessage());
+    }
 }
