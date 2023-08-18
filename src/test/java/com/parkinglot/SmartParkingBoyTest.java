@@ -123,5 +123,20 @@ class SmartParkingBoyTest {
         assertTrue(parkingLot2.getParkedCars().contains(car));
     }
 
-   
+    @Test
+    void should_return_car_will_parked_to_the_first_parking_lot_when_park_given_smart_parking_boy_manage_2_parking_lots_with_available_position() {
+        //Given
+        Car car = new Car();
+        ParkingLot parkingLot1 = new ParkingLot(20);
+        ParkingLot parkingLot2 = new ParkingLot(10);
+        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLot1, parkingLot2);
+
+        //When
+        ParkingTicket parkingTicket = smartParkingBoy.parkCar(car);
+
+        //Then
+        assertNotNull(parkingTicket);
+        assertTrue(parkingLot1.getParkedCars().contains(car));
+        assertFalse(parkingLot2.getParkedCars().contains(car));
+    }
 }
