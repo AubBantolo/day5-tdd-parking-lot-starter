@@ -1,25 +1,21 @@
 package com.parkinglot;
 
-import java.util.Comparator;
 import java.util.List;
 
-public class SuperParkngBoy implements ParkingStrategy {
+public class ParkingBoy {
 
-    private Car car = new Car();
+    private final ParkingStrategy parkingStrategy;
     private List<ParkingLot> parkingLots;
-    public SuperParkngBoy(ParkingLot... parkingLots) {
+
+    public ParkingBoy(ParkingStrategy parkingStrategy, ParkingLot... parkingLots) {
+        this.parkingStrategy = parkingStrategy;
         this.parkingLots = List.of(parkingLots);
     }
 
-    @Override
     public ParkingTicket park(Car car) {
-        return parkingLots.stream()
-                .max(Comparator.comparing(ParkingLot::getLargestAvailablePositionRate))
-                .orElseThrow(() -> new ParkingException())
-                .park(car);
+        return parkingStrategy.park(car, parkingLots);
     }
 
-    @Override
     public Car fetch(ParkingTicket parkingTicket) {
         return parkingLots.stream()
                 .map(parkingLot -> parkingLot.fetch(parkingTicket))

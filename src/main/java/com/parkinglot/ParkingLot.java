@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ParkingLot implements ParkingStrategy{
+public class ParkingLot {
 
     private int capacity;
     private static final int DEFAULT_CAPACITY = 10;

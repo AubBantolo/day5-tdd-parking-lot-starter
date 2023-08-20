@@ -1,8 +1,8 @@
 package com.parkinglot;
 
+import java.util.List;
+
 public interface ParkingStrategy {
 
-    ParkingTicket park (Car Car);
-
-    Car fetch(ParkingTicket parkingTicket);
+    ParkingTicket park (Car car, List<ParkingLot> parkingLots);
 }

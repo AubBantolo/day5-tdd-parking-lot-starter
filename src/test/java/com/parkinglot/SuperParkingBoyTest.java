@@ -6,7 +6,7 @@ import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SuperParkngBoyTest {
+class SuperParkingBoyTest {
     @Test
     void should_return_car_will_parked_to_the_first_parking_lot_when_park_given_super_parking_boy_manage_2_parking_lots_with_more_position_rate() {
         //Given
@@ -15,10 +15,10 @@ class SuperParkngBoyTest {
         setInitiallyParkedCars(parkingLot1, 3);
         ParkingLot parkingLot2 = new ParkingLot(20);
         setInitiallyParkedCars(parkingLot2, 7);
-        SuperParkngBoy superParkngBoy = new SuperParkngBoy(parkingLot1, parkingLot2);
+        ParkingBoy parkingBoy = new ParkingBoy(new SuperParkingBoy(), parkingLot1, parkingLot2);
 
         //When
-        ParkingTicket parkingTicket = superParkngBoy.park(car);
+        ParkingTicket parkingTicket = parkingBoy.park(car);
 
         //Then
         assertNotNull(parkingTicket);
@@ -34,10 +34,10 @@ class SuperParkngBoyTest {
         setInitiallyParkedCars(parkingLot1, 3);
         ParkingLot parkingLot2 = new ParkingLot(20);
         setInitiallyParkedCars(parkingLot2, 5);
-        SuperParkngBoy superParkngBoy = new SuperParkngBoy(parkingLot1, parkingLot2);
+        ParkingBoy parkingBoy = new ParkingBoy(new SuperParkingBoy(), parkingLot1, parkingLot2);
 
         //When
-        ParkingTicket parkingTicket = superParkngBoy.park(car);
+        ParkingTicket parkingTicket = parkingBoy.park(car);
 
         //Then
         assertNotNull(parkingTicket);
