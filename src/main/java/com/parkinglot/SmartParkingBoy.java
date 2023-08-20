@@ -5,15 +5,10 @@ import java.util.List;
 
 public class SmartParkingBoy implements ParkingStrategy {
 
-    private Car car = new Car();
     private List<ParkingLot> parkingLots;
     public SmartParkingBoy(ParkingLot... parkingLots) {
         this.parkingLots = List.of(parkingLots);
     }
-    public List<ParkingLot> getParkingLots() {
-        return parkingLots;
-    }
-
     @Override
     public ParkingTicket park(Car car) {
         return parkingLots.stream()

@@ -4,15 +4,10 @@ import java.util.List;
 
 public class StandardParkingBoy implements ParkingStrategy{
 
-    private Car car = new Car();
     private List<ParkingLot> parkingLots;
 
     public StandardParkingBoy(ParkingLot... parkingLots) {
         this.parkingLots = List.of(parkingLots);
-    }
-
-    public List<ParkingLot> getParkingLots() {
-        return parkingLots;
     }
 
     @Override

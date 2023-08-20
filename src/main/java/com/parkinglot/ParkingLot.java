@@ -5,10 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class ParkingLot implements ParkingStrategy{
-    private Car car = new Car();
 
     private int capacity;
     private static final int DEFAULT_CAPACITY = 10;

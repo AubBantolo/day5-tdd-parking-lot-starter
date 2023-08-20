@@ -1,7 +1,5 @@
 package com.parkinglot;
 
-import org.junit.Test;
-
 import java.util.Comparator;
 import java.util.List;
 
@@ -11,9 +9,6 @@ public class SuperParkngBoy implements ParkingStrategy {
     private List<ParkingLot> parkingLots;
     public SuperParkngBoy(ParkingLot... parkingLots) {
         this.parkingLots = List.of(parkingLots);
-    }
-    public List<ParkingLot> getParkingLots() {
-        return parkingLots;
     }
 
     @Override
