@@ -15,7 +15,7 @@ class SmartParkingBoyTest {
         SmartParkingBoy smartParkingBoy = new SmartParkingBoy(new ParkingLot());
 
         //When
-        ParkingTicket parkingTicket = smartParkingBoy.parkCar(car);
+        ParkingTicket parkingTicket = smartParkingBoy.park(car);
 
         //Then
         assertNotNull(parkingTicket);
@@ -27,10 +27,10 @@ class SmartParkingBoyTest {
         //Given
         Car car = new Car();
         SmartParkingBoy smartParkingBoy = new SmartParkingBoy(new ParkingLot());
-        ParkingTicket parkingTicket = smartParkingBoy.parkCar(car);
+        ParkingTicket parkingTicket = smartParkingBoy.park(car);
 
         //When
-        Car fetchedCar = smartParkingBoy.fetchCar(parkingTicket);
+        Car fetchedCar = smartParkingBoy.fetch(parkingTicket);
 
         //Then
         assertEquals(car, fetchedCar);
@@ -42,12 +42,12 @@ class SmartParkingBoyTest {
         Car car1 = new Car();
         Car car2 = new Car();
         SmartParkingBoy smartParkingBoy = new SmartParkingBoy(new ParkingLot());
-        ParkingTicket parkingTicket1 = smartParkingBoy.parkCar(car1);
-        ParkingTicket parkingTicket2 = smartParkingBoy.parkCar(car2);
+        ParkingTicket parkingTicket1 = smartParkingBoy.park(car1);
+        ParkingTicket parkingTicket2 = smartParkingBoy.park(car2);
 
         //When
-        Car fetchedCar1 = smartParkingBoy.fetchCar(parkingTicket1);
-        Car fetchedCar2 = smartParkingBoy.fetchCar(parkingTicket2);
+        Car fetchedCar1 = smartParkingBoy.fetch(parkingTicket1);
+        Car fetchedCar2 = smartParkingBoy.fetch(parkingTicket2);
 
         //Then
         assertSame(car1, fetchedCar1);
@@ -64,7 +64,7 @@ class SmartParkingBoyTest {
 
         //When
         UnrecognizedTicketException unrecognizedTicketException = assertThrows(UnrecognizedTicketException.class, () -> {
-            smartParkingBoy.fetchCar(wrongParkingTicket);
+            smartParkingBoy.fetch(wrongParkingTicket);
         });
 
         //Then
@@ -77,12 +77,12 @@ class SmartParkingBoyTest {
         Car car = new Car();
         SmartParkingBoy smartParkingBoy = new SmartParkingBoy(new ParkingLot());
 
-        ParkingTicket usedParkingTicket = smartParkingBoy.parkCar(car);
-        smartParkingBoy.fetchCar(usedParkingTicket);
+        ParkingTicket usedParkingTicket = smartParkingBoy.park(car);
+        smartParkingBoy.fetch(usedParkingTicket);
 
         //When
         UnrecognizedTicketException unrecognizedTicketException = assertThrows(UnrecognizedTicketException.class, () -> {
-            smartParkingBoy.fetchCar(usedParkingTicket);
+            smartParkingBoy.fetch(usedParkingTicket);
         });
 
         //Then
@@ -96,11 +96,11 @@ class SmartParkingBoyTest {
         SmartParkingBoy smartParkingBoy = new SmartParkingBoy(new ParkingLot());
 
         IntStream.range(0, 10)
-                .forEach(value -> smartParkingBoy.parkCar(new Car()));
+                .forEach(value -> smartParkingBoy.park(new Car()));
 
         //When
         ParkingException parkingException = assertThrows(ParkingException.class, () -> {
-            smartParkingBoy.parkCar(car);
+            smartParkingBoy.park(car);
         });
 
         //Then
@@ -115,7 +115,7 @@ class SmartParkingBoyTest {
         SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLot1, parkingLot2);
 
         //When
-        ParkingTicket parkingTicket = smartParkingBoy.parkCar(car);
+        ParkingTicket parkingTicket = smartParkingBoy.park(car);
 
         //Then
         assertNotNull(parkingTicket);
@@ -132,7 +132,7 @@ class SmartParkingBoyTest {
         SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLot1, parkingLot2);
 
         //When
-        ParkingTicket parkingTicket = smartParkingBoy.parkCar(car);
+        ParkingTicket parkingTicket = smartParkingBoy.park(car);
 
         //Then
         assertNotNull(parkingTicket);
@@ -152,7 +152,7 @@ class SmartParkingBoyTest {
         SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLot1, parkingLot2);
 
         //When
-        ParkingTicket parkingTicket = smartParkingBoy.parkCar(car);
+        ParkingTicket parkingTicket = smartParkingBoy.park(car);
 
         //Then
         assertNotNull(parkingTicket);

@@ -1,10 +1,8 @@
 package com.parkinglot;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class StandardParkingBoy {
+public class StandardParkingBoy implements ParkingStrategy{
 
     private Car car = new Car();
     private List<ParkingLot> parkingLots;
@@ -17,7 +15,8 @@ public class StandardParkingBoy {
         return parkingLots;
     }
 
-    public ParkingTicket parkCar(Car car) {
+    @Override
+    public ParkingTicket park(Car car) {
         return parkingLots.stream()
                 .filter(parkingLot -> parkingLot.hasAvailableSlots())
                 .findFirst()
@@ -25,8 +24,8 @@ public class StandardParkingBoy {
                 .park(car);
     }
 
-
-    public Car fetchCar(ParkingTicket parkingTicket) {
+    @Override
+    public Car fetch(ParkingTicket parkingTicket) {
         return parkingLots.stream()
                 .map(parkingLot -> parkingLot.fetch(parkingTicket))
                 .findAny()

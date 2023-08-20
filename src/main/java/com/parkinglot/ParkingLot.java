@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class ParkingLot {
+public class ParkingLot implements ParkingStrategy{
     private Car car = new Car();
 
     private int capacity;

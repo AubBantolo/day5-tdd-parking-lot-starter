@@ -3,7 +3,7 @@ package com.parkinglot;
 import java.util.Comparator;
 import java.util.List;
 
-public class SmartParkingBoy {
+public class SmartParkingBoy implements ParkingStrategy {
 
     private Car car = new Car();
     private List<ParkingLot> parkingLots;
@@ -14,15 +14,16 @@ public class SmartParkingBoy {
         return parkingLots;
     }
 
-    public ParkingTicket parkCar(Car car) {
+    @Override
+    public ParkingTicket park(Car car) {
         return parkingLots.stream()
-                .max(Comparator.comparing(ParkingLot::getAvailableSlots))
+                .max(Comparator.comparing(parkingLot -> parkingLot.getAvailableSlots()))
                 .orElseThrow(() -> new ParkingException())
                 .park(car);
     }
 
-
-    public Car fetchCar(ParkingTicket parkingTicket) {
+    @Override
+    public Car fetch(ParkingTicket parkingTicket) {
         return parkingLots.stream()
                 .map(parkingLot -> parkingLot.fetch(parkingTicket))
                 .findAny()

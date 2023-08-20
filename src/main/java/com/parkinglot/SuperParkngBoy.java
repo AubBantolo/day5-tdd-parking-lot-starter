@@ -1,9 +1,11 @@
 package com.parkinglot;
 
+import org.junit.Test;
+
 import java.util.Comparator;
 import java.util.List;
 
-public class SuperParkngBoy {
+public class SuperParkngBoy implements ParkingStrategy {
 
     private Car car = new Car();
     private List<ParkingLot> parkingLots;
@@ -14,6 +16,7 @@ public class SuperParkngBoy {
         return parkingLots;
     }
 
+    @Override
     public ParkingTicket park(Car car) {
         return parkingLots.stream()
                 .max(Comparator.comparing(ParkingLot::getLargestAvailablePositionRate))
@@ -21,8 +24,8 @@ public class SuperParkngBoy {
                 .park(car);
     }
 
-
-    public Car fetchCar(ParkingTicket parkingTicket) {
+    @Override
+    public Car fetch(ParkingTicket parkingTicket) {
         return parkingLots.stream()
                 .map(parkingLot -> parkingLot.fetch(parkingTicket))
                 .findAny()

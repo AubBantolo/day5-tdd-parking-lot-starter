@@ -2,8 +2,6 @@ package com.parkinglot;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,7 +15,7 @@ class StandardParkingBoyTest {
         StandardParkingBoy standardParkingBoy = new StandardParkingBoy(new ParkingLot());
 
         //When
-        ParkingTicket parkingTicket = standardParkingBoy.parkCar(car);
+        ParkingTicket parkingTicket = standardParkingBoy.park(car);
 
         //Then
         assertNotNull(parkingTicket);
@@ -29,10 +27,10 @@ class StandardParkingBoyTest {
         //Given
         Car car = new Car();
         StandardParkingBoy standardParkingBoy = new StandardParkingBoy(new ParkingLot());
-        ParkingTicket parkingTicket = standardParkingBoy.parkCar(car);
+        ParkingTicket parkingTicket = standardParkingBoy.park(car);
         
         //When
-        Car fetchedCar = standardParkingBoy.fetchCar(parkingTicket);
+        Car fetchedCar = standardParkingBoy.fetch(parkingTicket);
 
         //Then
         assertEquals(car, fetchedCar);
@@ -44,12 +42,12 @@ class StandardParkingBoyTest {
         Car car1 = new Car();
         Car car2 = new Car();
         StandardParkingBoy standardParkingBoy = new StandardParkingBoy(new ParkingLot());
-        ParkingTicket parkingTicket1 = standardParkingBoy.parkCar(car1);
-        ParkingTicket parkingTicket2 = standardParkingBoy.parkCar(car2);
+        ParkingTicket parkingTicket1 = standardParkingBoy.park(car1);
+        ParkingTicket parkingTicket2 = standardParkingBoy.park(car2);
 
         //When
-        Car fetchedCar1 = standardParkingBoy.fetchCar(parkingTicket1);
-        Car fetchedCar2 = standardParkingBoy.fetchCar(parkingTicket2);
+        Car fetchedCar1 = standardParkingBoy.fetch(parkingTicket1);
+        Car fetchedCar2 = standardParkingBoy.fetch(parkingTicket2);
 
         //Then
         assertSame(car1, fetchedCar1);
@@ -66,7 +64,7 @@ class StandardParkingBoyTest {
 
         //When
         UnrecognizedTicketException unrecognizedTicketException = assertThrows(UnrecognizedTicketException.class, () -> {
-            standardParkingBoy.fetchCar(wrongParkingTicket);
+            standardParkingBoy.fetch(wrongParkingTicket);
         });
 
         //Then
@@ -79,12 +77,12 @@ class StandardParkingBoyTest {
         Car car = new Car();
         StandardParkingBoy standardParkingBoy = new StandardParkingBoy(new ParkingLot());
 
-        ParkingTicket usedParkingTicket = standardParkingBoy.parkCar(car);
-        standardParkingBoy.fetchCar(usedParkingTicket);
+        ParkingTicket usedParkingTicket = standardParkingBoy.park(car);
+        standardParkingBoy.fetch(usedParkingTicket);
 
         //When
         UnrecognizedTicketException unrecognizedTicketException = assertThrows(UnrecognizedTicketException.class, () -> {
-            standardParkingBoy.fetchCar(usedParkingTicket);
+            standardParkingBoy.fetch(usedParkingTicket);
         });
 
         //Then
@@ -98,11 +96,11 @@ class StandardParkingBoyTest {
         StandardParkingBoy standardParkingBoy = new StandardParkingBoy(new ParkingLot());
 
         IntStream.range(0, 10)
-                .forEach(value -> standardParkingBoy.parkCar(new Car()));
+                .forEach(value -> standardParkingBoy.park(new Car()));
 
         //When
         ParkingException parkingException = assertThrows(ParkingException.class, () -> {
-            standardParkingBoy.parkCar(car);
+            standardParkingBoy.park(car);
         });
 
         //Then
@@ -118,7 +116,7 @@ class StandardParkingBoyTest {
         StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLot1, parkingLot2);
 
         //When
-        ParkingTicket parkingTicket = standardParkingBoy.parkCar(car);
+        ParkingTicket parkingTicket = standardParkingBoy.park(car);
 
         //Then
         assertNotNull(parkingTicket);
@@ -135,13 +133,13 @@ class StandardParkingBoyTest {
         StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLot1, parkingLot2);
 
         IntStream.range(0, 10).forEach(value -> {
-            standardParkingBoy.parkCar(new Car());
+            standardParkingBoy.park(new Car());
         });
 
-        standardParkingBoy.parkCar(car);
+        standardParkingBoy.park(car);
 
         //When
-        ParkingTicket parkingTicket = standardParkingBoy.parkCar(car);
+        ParkingTicket parkingTicket = standardParkingBoy.park(car);
 
         //Then
         assertNotNull(parkingTicket);
@@ -159,12 +157,12 @@ class StandardParkingBoyTest {
 
         StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLot1, parkingLot2);
 
-        ParkingTicket parkingTicket1 = standardParkingBoy.parkCar(car1);
-        ParkingTicket parkingTicket2 = standardParkingBoy.parkCar(car2);
+        ParkingTicket parkingTicket1 = standardParkingBoy.park(car1);
+        ParkingTicket parkingTicket2 = standardParkingBoy.park(car2);
 
         //When
-        Car fetchedCar1 = standardParkingBoy.fetchCar(parkingTicket1);
-        Car fetchedCar2 = standardParkingBoy.fetchCar(parkingTicket2);
+        Car fetchedCar1 = standardParkingBoy.fetch(parkingTicket1);
+        Car fetchedCar2 = standardParkingBoy.fetch(parkingTicket2);
 
         //Then
         assertSame(car1, fetchedCar1);
@@ -184,7 +182,7 @@ class StandardParkingBoyTest {
 
         //When
         UnrecognizedTicketException unrecognizedTicketException = assertThrows(UnrecognizedTicketException.class, () -> {
-            standardParkingBoy.fetchCar(unrecognizedParkingTicket);
+            standardParkingBoy.fetch(unrecognizedParkingTicket);
         });
 
         //Then
@@ -200,12 +198,12 @@ class StandardParkingBoyTest {
 
         StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLot1, parkingLot2);
 
-        ParkingTicket usedParkingTicket = standardParkingBoy.parkCar(car);
-        standardParkingBoy.fetchCar(usedParkingTicket);
+        ParkingTicket usedParkingTicket = standardParkingBoy.park(car);
+        standardParkingBoy.fetch(usedParkingTicket);
 
         //When
         UnrecognizedTicketException unrecognizedTicketException = assertThrows(UnrecognizedTicketException.class, () -> {
-            standardParkingBoy.fetchCar(usedParkingTicket);
+            standardParkingBoy.fetch(usedParkingTicket);
         });
 
         //Then
@@ -223,11 +221,11 @@ class StandardParkingBoyTest {
 
         //When
         IntStream.range(0, 20)
-                .forEach(value -> standardParkingBoy.parkCar(new Car()));
+                .forEach(value -> standardParkingBoy.park(new Car()));
 
         //When
         ParkingException parkingException = assertThrows(ParkingException.class, () -> {
-            standardParkingBoy.parkCar(car);
+            standardParkingBoy.park(car);
         });
 
         //Then
