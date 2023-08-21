@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ParkingLot {
-
+//TODO: Check the code smells for refactoring.
     private int capacity;
     private static final int DEFAULT_CAPACITY = 10;
     private Map<ParkingTicket, Car> parkingTicketCarMap = new HashMap<>();
